@@ -50,6 +50,7 @@ index_save(hashtable_t *wordindex, const char *indexfile);
 2. Pass in the helper function `save_word` to `hashtable_iterate` to write each word in the index data structure to the file.
 
     2.1 In `save_word`, write the word to `indexfile` and then pass in the helper function `save_counts` to `counters_iterate` to write each (id, count) pair in the counterset to the index file.
+    
     2.2 In `save_counts`, write each (id, count) pair to the file using `fprintf`, separated by a single space.
 
 3. Close the file with `fclose`.

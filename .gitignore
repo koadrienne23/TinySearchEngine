@@ -6,6 +6,7 @@ TAGS
 # Do NOT push data files to git.
 # I suggest you create crawler/indexer output in subdirectories of ./data
 data
+pageDirectory
 
 # HOWEVER, we DO want to push the libcs50-given.a file to git
 # Normally, .a files aren't pushed, but we need it there.

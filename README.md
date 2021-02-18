@@ -1,10 +1,12 @@
-# Your name
-## CS50 Spring 2019, Tiny Search Engine
+# Adrienne Ko
+## CS50 Winter 2021, Tiny Search Engine: Indexer
 
-GitHub username:
+GitHub username: koadrienne23
 
 To build, run `make`.
 
-To clean up, run `make clean`.
+To test Indexer, first run Crawler and keep all documents that it creates. 
 
-*Please replace this text with any comments you have about the overall assignment.  Please supply a README for each subdirectory..*
+To get the exact `testing.out` file provided in the `indexer` subdirectory, first run `make valgrind` or `./crawler http://cs50tse.cs.dartmouth.edu/tse/letters/ ../data/pageDirectory/ 2` within the `crawler` subdirectory, then run `make test &> testing.out` within the `indexer` subdirectory.
+
+To clean up, run `make clean`.
