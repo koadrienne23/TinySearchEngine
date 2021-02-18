@@ -59,10 +59,13 @@ The crawler will run as follows:
 3. loop through each document in `pageDirectory` and for each document,
 
 	3.1 extract the url, depth, and html content to create a new *webpage* with these values
+	
 	3.2 loop through all the words in the webpage and for each word, if it consists of at least three characters,
 
 	3.2a normalize the word
+	
 	3.2b if the word already exists as a key in the ***hashtable***, increment the count of the given document by 1
+	
 	3.2c if the word is not already in the table, create a new ***counterset***, initialize the count of the given document to 1, and insert that counterset into the table with the word as its key
 
 4. use `index_save` to save this inverted-index data structure (the hashtable of countersets) to `indexFilename`

@@ -24,14 +24,19 @@ int indexer(const char *pagedir, const char *indexfile, hashtable_t *wordindex);
 3. Enter a while-loop that loops until `(fp = fopen(filename, "r")) == NULL`. That is, it loops through each readable document in our Crawler-produced `pageDirectory`.
 
     3.1 Use `freadlinep` and `freadfilep` from the `file` module to extract the url, depth and html content of the current file, and creat a new `webpage_t`.
+   
     3.2 Call `webpage_getNextWord` to loop through each word of the html until there are no more words left. That is, `while ((word = webpage_getNextWord(page, &pos)) != NULL)`.
 
     3.2a Verify that the current word is at least three letters. If so, normalize the word using `NormalizeWord`
+   
     3.2b Call `hashtable_find` on `word`. If it does not equall NULL, that means it already exists as a key in the table. In that case, increment the count of the given document by 1 by calling `counters_add` on the counterset to which `word` points.
+   
     3.2c If it does not yet exist, create a new counterset with `counters_new` and initialize the count of the given document to 1 using `counters_add`. Insert this new counterset to the hashtable with the key being `word`.
+   
     3.2d Free `word`
 
     3.3 Delete the webpage by calling `webpage_delete`
+   
     3.4 Update `id` and `filename`
 
 4. Call `index_save` to read the index data structure and save it to `indexFilename`.
