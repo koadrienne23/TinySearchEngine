@@ -1,0 +1,123 @@
+bash -v testing.sh test
+#!/bin/bash
+#
+# testing.sh
+#
+# Adrienne Ko, Feb 24 2021
+#
+# Description: a sequence of commands that demonstrate how 
+# 'querier.c' works.
+# 
+# Usage: bash -v testing.sh &> testing.out
+
+
+################# Test invalid command-line arguments #################
+
+# incorrect number of arguments
+./querier ../data/pageDirectory/ ../data/indexfile bad_test
+usage: ./querier pageDirectory indexFilename; invalid arguments given
+
+# pageDirectory is not a path to an existing directory
+./querier ../data/nonexistent/ ../data/indexfile
+error: invalid pageDirectory given
+
+# pageDirectory is not path to a directory that was produced by the Crawler
+./querier ../data/ ../data/indexfile
+error: invalid pageDirectory given
+
+# indexFilename is not a path to a readable file
+chmod -r ../data/indexfile
+./querier ../data/pageDirectory/ ../data/indexfile
+error: invalid indexFilename given
+
+
+#################### Test invalid queries #####################
+
+# valid command-line arguments, but invalid stdin queries
+chmod +r ../data/indexfile
+./querier ../data/pageDirectory/ ../data/indexfile < invalid_queries_test.txt
+invalid query
+invalid query
+invalid query
+invalid query
+invalid query
+invalid query
+invalid query
+invalid query
+invalid query
+bad character '5' in query.
+bad character '!' in query.
+bad character '-' in query.
+
+
+#################### Test valid queries #####################
+
+# valid command-line arguments and valid stdin queries
+./querier ../data/pageDirectory/ ../data/indexfile < valid_queries_test.txt
+Query: home and search 
+Matches 1 documents (ranked):
+score	1	doc	4: http://cs50tse.cs.dartmouth.edu/tse/letters/B.html
+
+Query: home and search 
+Matches 1 documents (ranked):
+score	1	doc	4: http://cs50tse.cs.dartmouth.edu/tse/letters/B.html
+
+Query: home search 
+Matches 1 documents (ranked):
+score	1	doc	4: http://cs50tse.cs.dartmouth.edu/tse/letters/B.html
+
+Query: search home 
+Matches 1 documents (ranked):
+score	1	doc	4: http://cs50tse.cs.dartmouth.edu/tse/letters/B.html
+
+Query: page or algorithm 
+Matches 3 documents (ranked):
+score	1	doc	1: http://cs50tse.cs.dartmouth.edu/tse/letters/
+score	1	doc	3: http://cs50tse.cs.dartmouth.edu/tse/letters/index.html
+score	1	doc	2: http://cs50tse.cs.dartmouth.edu/tse/letters/A.html
+
+Query: algorithm or page 
+Matches 3 documents (ranked):
+score	1	doc	2: http://cs50tse.cs.dartmouth.edu/tse/letters/A.html
+score	1	doc	1: http://cs50tse.cs.dartmouth.edu/tse/letters/
+score	1	doc	3: http://cs50tse.cs.dartmouth.edu/tse/letters/index.html
+
+Query: home 
+Matches 4 documents (ranked):
+score	2	doc	1: http://cs50tse.cs.dartmouth.edu/tse/letters/
+score	2	doc	3: http://cs50tse.cs.dartmouth.edu/tse/letters/index.html
+score	1	doc	2: http://cs50tse.cs.dartmouth.edu/tse/letters/A.html
+score	1	doc	4: http://cs50tse.cs.dartmouth.edu/tse/letters/B.html
+
+Query: home or doessnotexist 
+Matches 4 documents (ranked):
+score	2	doc	1: http://cs50tse.cs.dartmouth.edu/tse/letters/
+score	2	doc	3: http://cs50tse.cs.dartmouth.edu/tse/letters/index.html
+score	1	doc	2: http://cs50tse.cs.dartmouth.edu/tse/letters/A.html
+score	1	doc	4: http://cs50tse.cs.dartmouth.edu/tse/letters/B.html
+
+Query: home and doesnotexist 
+No documents match.
+
+Query: playground and page or breadth 
+Matches 3 documents (ranked):
+score	1	doc	1: http://cs50tse.cs.dartmouth.edu/tse/letters/
+score	1	doc	3: http://cs50tse.cs.dartmouth.edu/tse/letters/index.html
+score	1	doc	4: http://cs50tse.cs.dartmouth.edu/tse/letters/B.html
+
+Query: playground page or first and breadth 
+Matches 3 documents (ranked):
+score	1	doc	1: http://cs50tse.cs.dartmouth.edu/tse/letters/
+score	1	doc	3: http://cs50tse.cs.dartmouth.edu/tse/letters/index.html
+score	1	doc	4: http://cs50tse.cs.dartmouth.edu/tse/letters/B.html
+
+Query: page or home or tse or search 
+Matches 4 documents (ranked):
+score	4	doc	1: http://cs50tse.cs.dartmouth.edu/tse/letters/
+score	4	doc	3: http://cs50tse.cs.dartmouth.edu/tse/letters/index.html
+score	2	doc	4: http://cs50tse.cs.dartmouth.edu/tse/letters/B.html
+score	1	doc	2: http://cs50tse.cs.dartmouth.edu/tse/letters/A.html
+
+Query: page and home and tse and search 
+No documents match.
+

@@ -1,0 +1,14 @@
+home and search
+ HOME     And    sEArcH  
+home search
+search home
+Page or Algorithm
+algorithm or      PAGE
+home 
+home or doessnotexist
+home and doesnotexist
+
+playground and page or breadth
+playground page or first and breadth
+page or home or tse or search
+page and home and tse and search
